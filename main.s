@@ -8,6 +8,6 @@ _start:
     
     call getchar ;case when we enter y 
 
-    mov eax, 1
+    mov eax, EXIT
     mov ebx, 0;everything worked
     int 80h
