@@ -7,8 +7,6 @@ section .data
 section .bss
 cin:
     resb 1
-getline:
-    resb 1024
 dummy:
     resb 100
 section .text
