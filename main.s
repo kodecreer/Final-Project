@@ -3,7 +3,7 @@ global _start
 EXTERN getchar
 
 section .text
-%include "getchar.s"
+%include "std.s"
 _start:
     
     call getchar ;case when we enter y 
