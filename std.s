@@ -2,7 +2,8 @@
 
 section .data
     ecxtemp dd 0
-
+    getd_err db `Character not valid digit\n`,0
+    lgetd_err equ $ - getd_err
 section .bss
 cin:
     resb 1
@@ -55,22 +56,20 @@ getline:
     mov ebx, 0
     mov edx, 1024
     ret 
-getn:
-    call getline
+getd:
+    call getchar
     ;store the string into data variable
-    mov [num_str], ecx
-    ;for each byte in the string
-    ;we will move the memory at an address
-    ;and get the character at a certain point. 
-loopn:
-    mov [temp], [ecx+i]
-    mov eax, temp
-    mov ebx, 2
+    sub al, '0'
+    cmp al, 0
+    jl gderr
+    cmp al, 9
+    ja gderr
+    ret
+gderr:
+    mov eax, getd_err
+    mov ebx, lgetd_err
     call print
-    inc i
-    jnz loopn
-powern:
-    imul
+    ret
 print:
     mov ecx, eax
     mov edx, ebx
