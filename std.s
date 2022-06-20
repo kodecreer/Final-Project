@@ -67,6 +67,7 @@ gderr:
     mov eax, getd_err
     mov ebx, lgetd_err
     call print
+    int 80h
     ret
 print:
     mov ecx, eax
