@@ -1,12 +1,8 @@
 
 
 section .data
-    
-section .data
-    num_str dd 0
-    num_int dd 0
-    temp dd 0    
-    i dd 0
+    ecxtemp dd 0
+
 section .bss
 cin:
     resb 1
