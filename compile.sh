@@ -1,2 +1,3 @@
 nasm -gdwarf -f elf32 std.s -o std.o
-ld -m elf_i386 std.o -o std
+nasm -gdwarf -f elf32 main.s -o main.o
+ld -m elf_i386 main.o std.o -o main
