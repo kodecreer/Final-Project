@@ -87,3 +87,4 @@ generate_random_num:
     mov eax, ecx
     div edx
     mov ecx, edx
+    ret
