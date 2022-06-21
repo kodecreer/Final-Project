@@ -2,6 +2,7 @@ global _start
 EXTERN generate_random_num, printn
 section .text
 ;%include "std.s"
+%include "io.h"
 _start:
     
     call generate_random_num
