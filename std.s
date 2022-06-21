@@ -74,6 +74,7 @@ print:
     mov edx, ebx
     mov eax, 4
     mov ebx, 1
+    int 80h
     ret 
 printn:
     add eax, '0'
