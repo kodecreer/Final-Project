@@ -4,8 +4,7 @@ EXTERN getn, generate_random_num, printn, print,
 section .data
     nl:
         db `\n`,0
-    lnl:
-        equ $ - nl
+    lnl equ $ - nl
     x: 
       dd 0
 section .text
