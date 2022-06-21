@@ -9,7 +9,7 @@ _start:
     mov eax, ecx
     mov ebx, 1
     call printn
-    int 80h
+
 
     mov eax, EXIT
     mov ebx, 0;everything worked
