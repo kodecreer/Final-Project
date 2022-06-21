@@ -83,7 +83,8 @@ generate_random_num:
     mov eax, 2;setting a
     mov ebx, 3;setting b
     mov edx, 100;setting m
-    imul ecx, ebx
+    imul ecx, eax
+    add ecx, ebx
     mov eax, ecx
     div edx
     mov ecx, edx
