@@ -72,8 +72,8 @@ gderr:
 print:
     mov ecx, eax
     mov edx, ebx
-    mov eax, 4
-    mov ebx, 1
+    mov eax, WRITE
+    mov ebx, STDOUT
     int 80h
     ret 
 printn:
