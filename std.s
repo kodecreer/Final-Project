@@ -75,3 +75,15 @@ print:
     mov eax, 4
     mov ebx, 1
     ret 
+printn:
+    add eax, '0'
+    call print
+generate_random_num:
+    ;xn+1 = (a*xn + b) % m
+    mov eax, 2;setting a
+    mov ebx, 3;setting b
+    mov edx, 100;setting m
+    imul ecx, ebx
+    mov eax, ecx
+    div edx
+    mov ecx, edx
