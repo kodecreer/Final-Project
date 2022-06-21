@@ -12,7 +12,7 @@ section .text
 %include "io.h"
 _start:
     
-    call generate_random_num
+    call getn
     mov eax, ecx
     mov ebx, 2
     call printn
