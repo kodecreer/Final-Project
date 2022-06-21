@@ -1,4 +1,4 @@
-
+global getchar, getline, getd, print,printn, generate_random_num
 
 section .data
     ecxtemp dd 0
