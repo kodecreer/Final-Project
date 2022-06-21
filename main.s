@@ -7,7 +7,7 @@ _start:
     
     call generate_random_num
     mov eax, ecx
-    mov ebx, 1
+    mov ebx, 2
     call printn
 
 
