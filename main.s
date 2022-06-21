@@ -1,7 +1,5 @@
 global _start
 
-EXTERN getchar, getd, generate_random_num
-
 section .text
 %include "std.s"
 _start:
