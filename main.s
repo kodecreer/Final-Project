@@ -1,5 +1,5 @@
 global _start
-EXTERN generate_random_num, printn
+EXTERN generate_random_num, printn, print
 section .text
 ;%include "std.s"
 %include "io.h"
@@ -9,6 +9,8 @@ _start:
     mov eax, ecx
     mov ebx, 1
     call printn
+    
+    call print
     mov eax, EXIT
     mov ebx, 0;everything worked
     int 80h
