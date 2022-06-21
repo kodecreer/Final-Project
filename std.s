@@ -76,10 +76,7 @@ print:
     mov ebx, STDOUT
     int 80h
     ret 
-printn:
-    add eax, '0'
-    call print
-    ret ; added to prevent bug
+
 generate_random_num:
     ;xn+1 = (a*xn + b) % m
     mov eax, 2;setting a
