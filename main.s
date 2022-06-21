@@ -10,7 +10,6 @@ _start:
     mov ebx, 1
     call printn
     
-    call print
     mov eax, EXIT
     mov ebx, 0;everything worked
     int 80h
