@@ -6,7 +6,7 @@ section .text
 _start:
     
     call generate_random_num
-    mov eax, ecx
+    mov eax, $ecx
     mov ebx, 2
     call printn
 
