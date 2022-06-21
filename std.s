@@ -82,10 +82,11 @@ generate_random_num:
     ;xn+1 = (a*xn + b) % m
     mov eax, 2;setting a
     mov ebx, 3;setting b
-    mov edx, 100;setting m
+    
     imul ecx, eax
     add ecx, ebx
     mov eax, ecx
-    div edx
+    mov ecx, 100;setting m
+    div ecx
     mov ecx, edx
     ret
