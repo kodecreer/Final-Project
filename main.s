@@ -13,7 +13,6 @@ section .text
 _start:
     
     call getn
-    mov eax, ecx
     mov ebx, 2
     call printn
     mov dword [x], ecx
