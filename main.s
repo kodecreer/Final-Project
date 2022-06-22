@@ -1,5 +1,5 @@
 global _start
-EXTERN getn, generate_random_num, printn, print, 
+EXTERN getn, generate_random_num, printn, print, getchar
 ;TODO Wedsnday
 ;Fill in other Scenarios until gandalf and Belrog fight
 ;Test program and make sure it doesn't break by the time of class tommorow
@@ -68,11 +68,11 @@ DungeonsWallIn:
     cmp eax, 1
     jz InvesitgateSound
     cmp eax, 2
-    jz 
+    jz OpenDoor
     cmp eax, 3
     jz AskFroto
     ;print an error message
-    jmp EnterDungeonIn
+    jmp DungeonsWallIn
 ;This is when they press one of the keyboard
 investigate_sound_msg: db `You decide to investigate the sound and found a giant Leviathan that eats Froto and the Stupid Hobit. With the Leviathan came the ring, and so did you hope. Game over the Saulron has won. \n`,0
 InvesitgateSound:
@@ -94,12 +94,14 @@ AskFroto:
     mov eax, ask_froto_msg
     mov ebx, AskFroto - ask_froto_msg
     call print
+AskFrotoIn:
     call getchar
     cmp al, 'y'
     jz OrcsAttack
     cmp al, 'n'
-    jz 
-    jmp 
+    jz NoPickUpBook
+    ;print error message
+    jmp AskFrotoIn
 orcs_attack_msg: db `The stupid hobit grabs the book and with him being clumsy, dropped it into a deep whole on accident. His brother calls him an idiot. You hear the sound of an impending army of orcs coming after an arrow hits the door. You all brace to fight for you lives.\n`,0
 orcs_attack_msg2: db `Borimor then says that there is a cave troll and you all block the door. It is barracaded and immedietly bursted open by the cave troll.\n`,0
 orcs_attack_msg3: db `The troll attacks the hobbits and splits them up after taking a couple of arrows. It then takes a liking to Froto and ignores everybody else. Do you Aragon attempt to defend Froto? y/n\n`,0
@@ -113,9 +115,9 @@ OrcsAttack:
 OrcsAttackIn:
     call getchar
     cmp al, 'y'
-    jz 
+    ;jz 
     cmp al, 'n'
-    jz
+    jz NoDefendFroto
     ;print an error message
     jmp OrcsAttackIn
 no_defend_froto: db `The cave troll closes in of Froto and stabs him. This enrages the crew and you all together must fight the cave troll together now!!!! Battle Begin!!!!\n`,0
@@ -128,6 +130,18 @@ CAVE_TROLL_FIGHT:
     call BattleRNG
     ;if the player health is greater than zero
     ;Then enter into the scenario
+no_pick_book_msg: db `You were wise and didn't pick up the book. You all leave the doors and head towards the grand hall. You then look up and noticed an large darkness creeping in. You see a horde of Orcs coming down\n`,0
+no_pick_book_msg2: db `They have surrounded, but for some reason pause and didn't attack you yet. Do you attack first or no? y/n\n`,0
+NoPickUpBook:
+    mov eax, no_pick_book_msg
+    mov ebx, no_pick_book_msg2 - no_pick_book_msg
+    call print
+    mov eax, no_pick_book_msg2
+    mov ebx, NoPickUpBook - no_pick_book_msg2
+    call print
+ORC_SWARM_FIGHT:
+    ;To implement later
+    ret
 ;TODO implent the combat system of the game
 ;Parameters
 rng_prompt: db `Enter in a guess between 0 and 9\n`,0
