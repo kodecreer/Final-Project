@@ -58,18 +58,18 @@ Welcome:
     jz Exit
     ;print an error message
     jmp Welcome
-dungeons_wall_msg: db `You have are at the walls of the dungeon and hear something behind you creeping as you try to open the door. As Gandalf, you can either go and investigate the sound, try to open the door, or ask   Which one shall you take? 1-3\n`,0
+dungeons_wall_msg: db `You have are at the walls of the dungeon and hear something behind you creeping as you try to open the door. As Gandalf, you can either \n1.go and investigate the sound\n2.try to open the door\n3. ask Froto what the word might be.\nWhich one shall you take? 1-3\n`,0
 DungeonsWall:
     mov eax, dungeons_wall_msg
     mov ebx, DungeonsWall - dungeons_wall_msg
     call print
 DungeonsWallIn:
-    call getn
-    cmp eax, 1
+    call getchar
+    cmp eax, '1'
     jz InvesitgateSound
-    cmp eax, 2
+    cmp eax, '2'
     jz OpenDoor
-    cmp eax, 3
+    cmp eax, '3'
     jz AskFroto
     ;print an error message
     jmp DungeonsWallIn
