@@ -230,13 +230,23 @@ Exit:
     int 80h
     ;repeat until either the player dies or the enemy dies
 pdamage:
+    push ebp
+    mov ebp, esp
+
     mov ecx, dword[ehealth]
     sub ecx, ebx
     mov dword[ehealth], ecx
+
+    leave
     ret
 
 edamage:
+    push ebp
+    mov ebp, esp
+
     mov ecx, dword[health]
     sub ecx, [eattack]
     mov dword[health], ecx
+
+    leave
     ret
