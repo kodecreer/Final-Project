@@ -23,7 +23,7 @@ section .data
         dd 100
     ehealth:
         dd 0
-    edamage:
+    eattack:
         dd 0
     
 section .text
@@ -46,7 +46,7 @@ _start:
     mov ebx, 0;everything worked
     int 80h
 
-welcome_msg : db `Welcome to Khazad Dum, you have been forced to come here after failing to climb Caradhras. You must escape this dungeon in order to quest towards destroy the ring of Saulron. Are you ready to embark on this great adventrue? y/n\n",0
+welcome_msg: db `Welcome to Khazad Dum, you have been forced to come here after failing to climb Caradhras. You must escape this dungeon in order to quest towards destroy the ring of Saulron. Are you ready to embark on this great adventrue? y/n\n",0
 Welcome:
     mov eax, welcome_msg
     mov ebx, Welcome - welcome_msg
@@ -112,7 +112,7 @@ OrcsAttack:
     call print
 OrcsAttackIn:
     call getchar
-    cmp al 'y'
+    cmp al, 'y'
     jz 
     cmp al, 'n'
     jz
@@ -160,16 +160,16 @@ BattleRNG:
     ;run an rng for the enemy
     mov edx, dword[x]
      ;inflict the damage roled between the 1 and the damage max cap set for the enemy
-    mov ecx, dword[edamage]
+    mov ecx, dword[eattack]
     ;TODO implent ranged damage for enemies
     call generate_random_num
     mov dword[x], ecx
    
 
     cmp [health],0
-    jlez GameOver
+    jle GameOver
     cmp [ehealth],0
-    jgz BattleRNG
+    jg BattleRNG
     ret
 
 GameOver:
