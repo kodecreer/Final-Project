@@ -46,7 +46,7 @@ _start:
     mov ebx, 0;everything worked
     int 80h
 
-welcome_msg: db `Welcome to Khazad Dum, you have been forced to come here after failing to climb Caradhras. You must escape this dungeon in order to quest towards destroy the ring of Saulron. Are you ready to embark on this great adventrue? y/n\n",0
+welcome_msg: db `Welcome to Khazad Dum, you have been forced to come here after failing to climb Caradhras. You must escape this dungeon in order to quest towards destroy the ring of Saulron. Are you ready to embark on this great adventrue? y/n\n`,0
 Welcome:
     mov eax, welcome_msg
     mov ebx, Welcome - welcome_msg
