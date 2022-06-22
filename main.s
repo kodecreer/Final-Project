@@ -158,6 +158,9 @@ player_stat1: db `Player health: `,0
 estat1: db `Enemy health: `,0
 rng_prompt: db `Enter in a guess between 0 and 9\n`,0
 BattleRNG:
+    push ebp
+    mov ebp, esp 
+
     mov eax, rng_prompt
     mov ebx, BattleRNG - rng_prompt
     call print
@@ -191,7 +194,6 @@ BattleRNG:
     cmp eax, 0
     jz pdamage
 
-    xor eax, eax
     ;else don't do any damage at all
 
     ;if the enemy is dead then don't call it to inflict damag
@@ -216,6 +218,8 @@ BattleRNG:
     ;if the enemy is not dead go start this again
     cmp dword[ehealth],0
     jg BattleRNG
+
+    leave
     ret
 
 GameOver:
