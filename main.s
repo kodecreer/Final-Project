@@ -41,6 +41,7 @@ _start:
     call printn
     mov dword [x], ecx
     call outnl
+    mov ecx, 10
     call generate_random_num
     mov ebx 2
     call printn
