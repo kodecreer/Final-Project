@@ -180,25 +180,26 @@ BattleRNG:
     mov dword [x], ecx
     sub eax, ecx
     ;if it's within 2, inflict 1 damage
-    push ebx
+    
+    mov ebx, 1
     cmp eax, 2
-    mov ebx, 1
     jz pdamage
-    cmp eax, -2
     mov ebx, 1
+    cmp eax, -2
     jz pdamage
     ;if it's within 1, inflict 3 damag
-    cmp eax, 1
     mov ebx, 3
+    cmp eax, 1
     jz pdamage
     cmp eax, -1
     jz pdamage
     ;if it's within 0, inflict 10 damage
-    cmp eax, 0
     mov ebx, 10
+    cmp eax, 0
     jz pdamage
-    pop ebx
 
+
+    xor eax, eax
     ;else don't do any damage at all
     ;run an rng for the enemy
     mov edx, dword[x]
