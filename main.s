@@ -43,7 +43,7 @@ _start:
     call outnl
     mov ecx, 10
     call generate_random_num
-    mov ebx 2
+    mov ebx,2
     call printn
     ;call Welcome
     mov eax, EXIT
