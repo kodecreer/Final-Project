@@ -133,7 +133,8 @@ NoDefendFroto:
     mov ebx, NoDefendFroto - no_defend_froto
     call print
 CAVE_TROLL_FIGHT:
-    mov dword[ehealth], 0
+    mov dword[ehealth], dword[cave_troll_health]
+    mov dword[eattack], 4
     call BattleRNG
     ;if the player health is greater than zero
     ;Then enter into the scenario
