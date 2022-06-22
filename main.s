@@ -169,7 +169,7 @@ BattleRNG:
     mov eax, roll_stat
     mov ebx, player_stat1 - roll_stat
     call print
-    mov edx, [x]
+    mov edx, dword[x]
     mov ecx, 10 ;player max guess range is 10
     call generate_random_num
     mov eax, ecx
