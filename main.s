@@ -41,6 +41,7 @@ _start:
     ; call printn
     ; mov dword [x], ecx
     ; call outnl
+    call Welcome
     mov eax, EXIT
     mov ebx, 0;everything worked
     int 80h
