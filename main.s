@@ -180,9 +180,9 @@ BattleRNG:
     mov dword[x], ecx
    
 
-    cmp [health],0
+    cmp dword[health],0
     jle GameOver
-    cmp [ehealth],0
+    cmp dword[ehealth],0
     jg BattleRNG
     ret
 
