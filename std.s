@@ -86,6 +86,7 @@ generate_random_num:
     imul edx, eax ;ecx is x
     add edx, ebx
     mov eax, edx
+    xor edx, edx
     ;mov ecx, 100;setting m
     div ecx
     mov ecx, edx
