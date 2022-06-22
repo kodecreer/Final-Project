@@ -154,10 +154,8 @@ ORC_SWARM_FIGHT:
 ;TODO implent the combat system of the game
 ;Parameters
 roll_stat: db `You just rolled a `,0
-player_stat1: db `The player has `,0
-player_stat2: db ` health.\n`,0
-estat1: db `The enemy has `,0
-estat2: db ` health.\n`,0
+player_stat1: db `Player health: `,0
+estat1: db `Enemy health: `,0
 rng_prompt: db `Enter in a guess between 0 and 9\n`,0
 BattleRNG:
     mov eax, rng_prompt
@@ -198,43 +196,26 @@ BattleRNG:
     cmp eax, 0
     jz pdamage
 
-
     xor eax, eax
     ;else don't do any damage at all
-    ;run an rng for the enemy
-    mov edx, dword[x]
-    ;inflict the damage roled between the 1 and the damage max cap set for the enemy
-    mov ecx, dword[eattack]
-    call generate_random_num
-    ;TODO implent ranged damage for enemies
-    
-    mov dword[x], ecx
-    mov ebx, dword[x]
+
     ;if the enemy is dead then don't call it to inflict damag
     cmp dword[ehealth],0
     jle edamage
 
     ;display the player results to the screen
     mov eax, player_stat1
-    mov ebx, player_stat2 - player_stat1
+    mov ebx, estat1 - player_stat1
     call print
     mov eax, dword[health]
-    mov ebx, 2
     call printn
-    mov eax, player_stat2
-    mov ebx, estat1 - player_stat2
-    call print
     ;display the enemy results to the screen
-    ; mov eax, estat1
-    ; mov ebx, estat2 - estat1
-    ; call print
-    ; mov eax, dword[ehealth]
-    ; mov ebx, 2
-    ; call printn
-    ; mov eax, estat2
-    ; mov ebx, rng_prompt - estat2
-    ; call print
-    ; if the player is dead then game over
+    mov eax, estat1
+    mov ebx, rng_prompt - estat1
+    call print
+    mov eax, dword[ehealth]
+    call printn
+    ;if the player is dead then game over
     cmp dword[health],0
     jle GameOver
     ;if the enemy is not dead go start this again
