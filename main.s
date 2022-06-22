@@ -201,17 +201,12 @@ BattleRNG:
 
     ;else don't do any damage at all
     ;run an rng for the enemy
-    call generate_random_num
-    mov eax, roll_stat
-    mov ebx, player_stat1 - roll_stat
-    call print
-
     mov edx, dword[x]
-     ;inflict the damage roled between the 1 and the damage max cap set for the enemy
+    ;inflict the damage roled between the 1 and the damage max cap set for the enemy
     mov ecx, dword[eattack]
+    call generate_random_num
     ;TODO implent ranged damage for enemies
     
-    mov eax, []
     mov dword[x], ecx
     mov ebx, dword[x]
     ;if the enemy is dead then don't call it to inflict damag
