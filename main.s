@@ -187,7 +187,7 @@ BattleRNG:
     ;if it's within 0, inflict 10 damage
     cmp eax, 0
     mov ebx, 10
-    jz pdamage10
+    jz pdamage
     pop ebx
 
     ;else don't do any damage at all
