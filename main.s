@@ -112,6 +112,9 @@ OrcsAttack:
     mov eax, orcs_attack_msg2
     mov ebx, orcs_attack_msg3 - orcs_attack_msg2
     call print
+    mov eax, orcs_attack_msg3
+    mov ebx, OrcsAttack - orcs_attack_msg3
+    call print
 OrcsAttackIn:
     call getchar
     cmp al, 'y'
