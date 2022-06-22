@@ -167,18 +167,25 @@ BattleRNG:
     mov dword [x], ecx
     sub eax, ecx
     ;if it's within 2, inflict 1 damage
+    push ebx
     cmp eax, 2
-    jz pdamage1
+    mov ebx, 1
+    jz pdamage
     cmp eax, -2
-    jz pdamage1
+    mov ebx, 1
+    jz pdamage
     ;if it's within 1, inflict 3 damag
     cmp eax, 1
-    jz pdamage3
+    mov ebx, 3
+    jz pdamage
     cmp eax, -1
-    jz pdamage3
+    jz pdamage
     ;if it's within 0, inflict 10 damage
     cmp eax, 0
+    mov ebx, 10
     jz pdamage10
+    pop ebx
+
     ;else don't do any damage at all
     ;run an rng for the enemy
     mov edx, dword[x]
@@ -187,10 +194,14 @@ BattleRNG:
     ;TODO implent ranged damage for enemies
     call generate_random_num
     mov dword[x], ecx
-   
-
+    mov ebx, dword[x]
+    ;if the enemy is dead then don't call it to inflict damag
+    cmp dword[ehealth],0
+    jle edamage
+    ; if the player is dead then game over
     cmp dword[health],0
     jle GameOver
+    ;if the enemy is not dead go start this again
     cmp dword[ehealth],0
     jg BattleRNG
     ret
@@ -202,11 +213,18 @@ Exit:
     mov ebx, 0;everything worked
     int 80h
     ;repeat until either the player dies or the enemy dies
-pdamage1:
+pdamage:
+    push ecx
+    mov ecx, dword[ehealth]
+    sub ecx, ebx
+    mov dword[ehealth], ebx
+    pop ecx
     ret
-pdamage3:
-    ret
-pdamage10:
-    ret
+
 edamage:
+    push ecx
+    mov ecx, dword[health]
+    sub ecx, ebx
+    mov dword[health], ebx
+    pop ecx
     ret
