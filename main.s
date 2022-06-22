@@ -132,13 +132,31 @@ NoDefendFroto:
     mov eax, no_defend_froto
     mov ebx, NoDefendFroto - no_defend_froto
     call print
+cave_troll_msg: db `The cave troll is resisting, pick a number between 1 to 4 possible moves.\n`,0
 CAVE_TROLL_FIGHT:
-    mov eax, dword[cave_troll_health]
-    mov dword[ehealth], eax
-    mov dword[eattack], 4
-    call BattleRNG
-    ;if the player health is greater than zero
-    ;Then enter into the scenario
+    mov eax, cave_troll_msg
+    mov ebx, CAVE_TROLL_FIGHT - cave_troll_msg
+    call print
+    call getn
+    cmp eax, 1;TODO make it a random number to be guessed
+    ;jl ;invalid input
+    jg GameOver
+cave_troll_msg2: db `You all gang up together and surrounded the cave troll. He is very angry. Legolas climbs on top of him and has to shoot him. Pick between a number between 0 and 9 that will determine the spot he gets hit.\n`,0
+CAVE_TROLL_FIGHT2:
+    mov eax, cave_troll_msg2
+    mov ebx, CAVE_TROLL_FIGHT2 - cave_troll_msg2
+    call print
+CAVE_TROLL_FIGHT2_IN:
+    call getchar
+    cmp al, '6'
+    jz TrollDefeated
+    cmp al, '9'
+    jle CAVE_TROLL_FIGHT2_IN
+    cmp al, '0'
+    jge CAVE_TROLL_FIGHT2_IN
+    ;print error message
+    jmp CAVE_TROLL_FIGHT2_IN
+
 no_pick_book_msg: db `You were wise and didn't pick up the book. You all leave the doors and head towards the grand hall. You then look up and noticed an large darkness creeping in. You see a horde of Orcs coming down\n`,0
 no_pick_book_msg2: db `They have surrounded, but for some reason pause and didn't attack you yet. Do you attack first or no? y/n\n`,0
 NoPickUpBook:
@@ -148,80 +166,126 @@ NoPickUpBook:
     mov eax, no_pick_book_msg2
     mov ebx, NoPickUpBook - no_pick_book_msg2
     call print
+troll_defeated_msg: db `You adjusted the bow accurately and hit the cave troll in the head. He then falls down with his final breath. You all leave the doors and head towards the grand hall. You then look up and noticed an large darkness creeping in. You see a horde of Orcs coming down\n`,0
+troll_defeated_msg2: db `They have surrounded, but for some reason pause and didn't attack you yet. Do you attack first or no? y/n\n`,0
+TrollDefeated:
+    mov eax, troll_defeated_msg
+    mov ebx, troll_defeated_msg2 - troll_defeated_msg
+    call print
+    mov eax, troll_defeated_msg2
+    mov ebx, TrollDefeated - troll_defeated_msg2
+    call print
+    call getchar
+    cmp al, 'y'
+    jz ORC_SWARM_FIGHT
+    cmp al, 'n'
 ORC_SWARM_FIGHT:
+    
     ;To implement later
     ret
-;TODO implent the combat system of the game
-;Parameters
-roll_stat: db `You just rolled a `,0
-player_stat1: db `Player health: `,0
-estat1: db `Enemy health: `,0
-rng_prompt: db `Enter in a guess between 0 and 9\n`,0
-BattleRNG:
-    push ebp
-    mov ebp, esp 
-
-    mov eax, rng_prompt
-    mov ebx, BattleRNG - rng_prompt
+balrog_arrives_msg: db `You were wise and you hear a loud thud. The orcs hear it and see the hue of flames at the end of the hall\n`,0
+balrog_arrives_msg2: db `They were sorely afraid and cower in fear. After Ghimli makes fun of them, you all wonder what cuased them to run.\n`,0
+balrog_arrives_msg3: db `You then come to find out that there is a huge black horned humanoid monster with a flame body come in.\n`,0
+balrog_arrives_msg4: db `It is the Balrog. An evil monster responsible for many evil. Do fight you and enact justice for the world, or do you run? y/n\n`,0
+BalrogArrives:
+    mov eax, balrog_arrives_msg
+    mov ebx, balrog_arrives_msg2 - balrog_arrives_msg
     call print
-    ;don't accept negative numbers
-    ;get the difference between the guess and the rng number
 
-    mov edx, dword[x]
-    mov ecx, 10 ;player max guess range is 10
-    call generate_random_num
-    mov dword [x], ecx
+    mov eax, balrog_arrives_msg2
+    mov ebx, balrog_arrives_msg3 - balrog_arrives_msg2
+    call print
 
-    call getn
-    mov ecx, dword[x]
-    sub eax, ecx
+    mov eax, balrog_arrives_msg3
+    mov ebx, balrog_arrives_msg4 - balrog_arrives_msg3
+    call print
+
+    mov eax, balrog_arrives_msg4
+    mov ebx, BalrogArrives - balrog_arrives_msg4
+    call print
+BalrogArrivesIn:
+    call getchar
+    cmp al, 'y'
+    jz EscapeBalrog
+    cmp al, 'n'
+    jz FightBalrogHall
+    ;print error message
+    jmp BalrogArrivesIn
+escape_balrog_msg: db `You all enter into a gloomy room with a broken stair case surronded by an flaming cloud that seems to fall endlessly. Most of the party makes it across. Froto and Aragon are about to jump.\n`,0
+escape_balrog_msg2: db `You then barely dodge an error to the face and you notice orcs targeting Froto. As Legolas, do you shoot them back? y/n\n`,0
+EscapeBalrog:
+    mov eax, escape_balrog_msg
+    mov ebx, escape_balrog_msg2 - escape_balrog_msg
+    call print
+    mov eax, escape_balrog_msg2
+    mov ebx, EscapeBalrog - escape_balrog_msg2
+    call print
+EscapeBalrogIn:
+    call getchar
+    cmp al, 'y'
+    jz BalrogsLastStand
+    cmp al, 'n'
+    jz FrotoShootByOrc
+    ;print error messag
+    jmp EscapeBalrogIn
+bridge_tilt: db `Balrog peaks through and slashes the leg of the staircase with Aragon and Froto. It is falling backward. You could either jump or do nothing. y/n\n`,0
+BridgeTilt:
+    mov eax, bridge_tilt
+    mov ebx, BridgeTilt - bridge_tilt
+    call print
+BridgeTiltIn:
+    call getchar
+    cmp al, 'y'
+    jz DeathByStairs
+    cmp al, 'n'
+    jz JumpedBridge
+    ;print error message
+    jmp BridgeTilt
+DeathByStairs:
+jumped_bridge_msg: `Aragon realizes that he can just tilt the bridge. He carry's Froto and goes to the end of the bridge.\n`,0
+jumped_bridge_msg2: `The moment the loud collison of the two stair cases. Aragon jumps and barely makes  it on there.\n`,0
+jumped_bridge_msg3: `You all would love to celebrate, but you notice the Balrog coming through.\n`,0
+jumped_bridge_msg4: `You can either run or fight. Will you run? y/n\n`,0
+JumpedBridge:
+    mov eax, jumped_bridge_msg
+    mov ebx, jumped_bridge_msg2 - jumped_bridge_msg
+    call print
+    mov eax, jumped_bridge_msg2
+    mov ebx, jumped_bridge_msg3 - jumped_bridge_msg2
+    call print
+    mov eax, jumped_bridge_msg3
+    mov ebx, jumped_bridge_msg4 - jumped_bridge_msg3
+    call print
+    mov eax, jumped_bridge_msg4
+    mov ebx, JumpedBridge - jumped_bridge_msg4
+    call print
+    call getchar
+    cmp al, 'y'
+    jz BalrogsLastStand
+    cmp al, 'n'
+    jz FightBalrogHall
+    ;print error message
+    jmp JumpedBridge
+BalrogsLastStand:
+;You have to choice to make the same you shall not pass
+;If it doesn't go then they are forced to fight him outside
+;Froto is seperate from the crew
+FrotoShootByOrc:
+;Froto dies, game over
+FightBalrogBridge:
+;success but gandalf fights it out to balrog
+;1 He has to choose a dimnesion
+;1 They all die
+;2 He transport him to the top of the mountain and they fight it out
+;3 Balrog is defeated by crew
+;4 He eats Froto
+figth_balrog_hall_msg: db `You attempt to fight him in the hall and the whole party is engulfed in flames. Gandalf narrowly defeats him, but lays dead on the ground with the rest of the crew. Eventually Saulron gets the ring from Gandalf the white and the land is enslaved by Saulron's hand\n`,0
+FightBalrogHall:
+    mov eax, figth_balrog_hall_msg
+    mov ebx, FightBalrogHall - figth_balrog_hall_msg
+    call print
+    jmp GameOver
     
-    ;if it's within 2, inflict 1 damage
-    mov ebx, 1
-    cmp eax, 2
-    jz pdamage
-    mov ebx, 1
-    cmp eax, -2
-    jz pdamage
-    ;if it's within 1, inflict 3 damag
-    mov ebx, 3
-    cmp eax, 1
-    jz pdamage
-    cmp eax, -1
-    jz pdamage
-    ;if it's within 0, inflict 10 damage
-    mov ebx, 10
-    cmp eax, 0
-    jz pdamage
-
-    ;else don't do any damage at all
-
-    ;if the enemy is dead then don't call it to inflict damag
-    cmp dword[ehealth],0
-    jle edamage
-
-    ;display the player results to the screen
-    mov eax, player_stat1
-    mov ebx, estat1 - player_stat1
-    call print
-    mov eax, dword[health]
-    call printn
-    ;display the enemy results to the screen
-    mov eax, estat1
-    mov ebx, rng_prompt - estat1
-    call print
-    mov eax, dword[ehealth]
-    call printn
-    ;if the player is dead then game over
-    cmp dword[health],0
-    jle GameOver
-    ;if the enemy is not dead go start this again
-    cmp dword[ehealth],0
-    jg BattleRNG
-
-    leave
-    ret
-
 GameOver:
     call Exit
 Exit:
@@ -229,25 +293,3 @@ Exit:
     mov ebx, 0;everything worked
     int 80h
     ;repeat until either the player dies or the enemy dies
-pdamage:
-    push ebp
-    mov ebp, esp
-
-    mov ecx, dword[ehealth]
-    sub ecx, ebx
-    mov dword[ehealth], ecx
-
-    mov esp, ebp
-    pop ebp
-    ret
-
-edamage:
-    push ebp
-    mov ebp, esp
-
-    mov ecx, dword[health]
-    sub ecx, [eattack]
-    mov dword[health], ecx
-
-    leave
-    ret
