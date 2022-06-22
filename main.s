@@ -233,11 +233,11 @@ Exit:
 pdamage:
     mov ecx, dword[ehealth]
     sub ecx, ebx
-    mov dword[ehealth], ebx
+    mov dword[ehealth], ecx
     ret
 
 edamage:
     mov ecx, dword[health]
     sub ecx, [eattack]
-    mov dword[health], ebx
+    mov dword[health], ecx
     ret
