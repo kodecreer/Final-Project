@@ -225,15 +225,15 @@ BattleRNG:
     mov ebx, estat1 - player_stat2
     call print
     ;display the enemy results to the screen
-    mov eax, estat1
-    mov ebx, estat2 - estat1
-    call print
-    mov eax, dword[ehealth]
-    mov ebx, 2
-    call printn
-    mov eax, estat2
-    mov ebx, rng_prompt - estat2
-    call print
+    ; mov eax, estat1
+    ; mov ebx, estat2 - estat1
+    ; call print
+    ; mov eax, dword[ehealth]
+    ; mov ebx, 2
+    ; call printn
+    ; mov eax, estat2
+    ; mov ebx, rng_prompt - estat2
+    ; call print
     ; if the player is dead then game over
     cmp dword[health],0
     jle GameOver
@@ -250,17 +250,13 @@ Exit:
     int 80h
     ;repeat until either the player dies or the enemy dies
 pdamage:
-    push ecx
     mov ecx, dword[ehealth]
     sub ecx, ebx
     mov dword[ehealth], ebx
-    pop ecx
     ret
 
 edamage:
-    push ecx
     mov ecx, dword[health]
-    sub ecx, ebx
+    sub ecx, [eattack]
     mov dword[health], ebx
-    pop ecx
     ret
