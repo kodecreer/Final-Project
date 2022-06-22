@@ -172,12 +172,11 @@ BattleRNG:
     mov ecx, 10 ;player max guess range is 10
     call generate_random_num
     pop eax
-    
     mov dword [x], ecx
     sub eax, ecx
     
     ;if it's within 2, inflict 1 damage
-    
+    push ecx
     mov ebx, 1
     cmp eax, 2
     jz pdamage
@@ -194,7 +193,10 @@ BattleRNG:
     mov ebx, 10
     cmp eax, 0
     jz pdamage
-
+    pop ecx
+    mov eax, ecx
+    call printn
+    call outnl
     xor eax, eax
     ;else don't do any damage at all
 
