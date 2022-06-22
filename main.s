@@ -153,6 +153,7 @@ ORC_SWARM_FIGHT:
     ret
 ;TODO implent the combat system of the game
 ;Parameters
+roll_stat: db `You just rolled a `,0
 player_stat1: db `The player has `,0
 player_stat2: db ` health.\n`,0
 estat1: db `The enemy has `,0
@@ -165,9 +166,17 @@ BattleRNG:
     call getn
     ;don't accept negative numbers
     ;get the difference between the guess and the rng number
+
+    call generate_random_num
+    mov eax, roll_stat
+    mov ebx, player_stat1 - roll_stat
+    call print
     mov edx, [x]
     mov ecx, 10 ;player max guess range is 10
     call generate_random_num
+    mov eax, ecx
+    call printn
+    call outnl
     mov dword [x], ecx
     sub eax, ecx
     ;if it's within 2, inflict 1 damage
@@ -192,11 +201,17 @@ BattleRNG:
 
     ;else don't do any damage at all
     ;run an rng for the enemy
+    call generate_random_num
+    mov eax, roll_stat
+    mov ebx, player_stat1 - roll_stat
+    call print
+
     mov edx, dword[x]
      ;inflict the damage roled between the 1 and the damage max cap set for the enemy
     mov ecx, dword[eattack]
     ;TODO implent ranged damage for enemies
-    call generate_random_num
+    
+    mov eax, []
     mov dword[x], ecx
     mov ebx, dword[x]
     ;if the enemy is dead then don't call it to inflict damag
