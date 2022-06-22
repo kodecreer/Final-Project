@@ -237,7 +237,8 @@ pdamage:
     sub ecx, ebx
     mov dword[ehealth], ecx
 
-    leave
+    mov esp, ebp
+    pop ebp
     ret
 
 edamage:
