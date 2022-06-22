@@ -208,6 +208,7 @@ BattleRNG:
     mov ebx, player_stat2 - player_stat1
     call print
     mov eax, dword[health]
+    mov ebx, 2
     call printn
     mov eax, player_stat2
     mov ebx, estat1 - player_stat2
@@ -217,6 +218,7 @@ BattleRNG:
     mov ebx, estat2 - estat1
     call print
     mov eax, dword[ehealth]
+    mov ebx, 2
     call printn
     mov eax, estat2
     mov ebx, rng_prompt - estat2
