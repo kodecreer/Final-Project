@@ -36,16 +36,16 @@ outnl:
     ret
 _start:
     ;reference
-    call getn
-    mov ebx, 2
-    call printn
-    mov dword [x], ecx
-    call outnl
-    mov ecx, 10
-    call generate_random_num
-    mov ebx,2
-    call printn
-    ;call Welcome
+    ; call getn
+    ; mov ebx, 2
+    ; call printn
+    ; mov dword [x], ecx
+    ; call outnl
+    ; mov ecx, 10
+    ; call generate_random_num
+    ; mov ebx,2
+    ; call printn
+    call Welcome
     mov eax, EXIT
     mov ebx, 0;everything worked
     int 80h
