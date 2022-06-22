@@ -10,7 +10,7 @@ section .data
         db `\n`,0
     lnl equ $ - nl
     x: 
-      dd 0
+      dd 1
     health:
       dd 12
     cave_troll_health:
@@ -165,18 +165,14 @@ BattleRNG:
     ;don't accept negative numbers
     ;get the difference between the guess and the rng number
     push eax
-    mov eax, roll_stat
-    mov ebx, player_stat1 - roll_stat
-    call print
     mov edx, dword[x]
     mov ecx, 10 ;player max guess range is 10
     call generate_random_num
-    pop eax
     mov dword [x], ecx
+    pop eax
     sub eax, ecx
     
     ;if it's within 2, inflict 1 damage
-    push ecx
     mov ebx, 1
     cmp eax, 2
     jz pdamage
@@ -193,10 +189,7 @@ BattleRNG:
     mov ebx, 10
     cmp eax, 0
     jz pdamage
-    pop ecx
-    mov eax, ecx
-    call printn
-    call outnl
+
     xor eax, eax
     ;else don't do any damage at all
 
