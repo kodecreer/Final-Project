@@ -153,6 +153,10 @@ ORC_SWARM_FIGHT:
     ret
 ;TODO implent the combat system of the game
 ;Parameters
+player_stat1: db `The player has `,0
+player_stat2: db ` health.\n`,0
+estat1: db `The enemy has `,0
+estat2: db ` health.\n`,0
 rng_prompt: db `Enter in a guess between 0 and 9\n`,0
 BattleRNG:
     mov eax, rng_prompt
@@ -198,6 +202,25 @@ BattleRNG:
     ;if the enemy is dead then don't call it to inflict damag
     cmp dword[ehealth],0
     jle edamage
+
+    ;display the player results to the screen
+    mov eax, player_stat1
+    mov ebx, player_stat2 - player_stat1
+    call print
+    mov eax, dword[health]
+    call printn
+    mov eax, player_stat2
+    mov ebx, estat1 - player_stat2
+    call print
+    ;display the enemy results to the screen
+    mov eax, estat1
+    mov ebx, estat2 - estat1
+    call print
+    mov eax, dword[ehealth]
+    call printn
+    mov eax, estat2
+    mov ebx, rng_prompt - estat2
+    call print
     ; if the player is dead then game over
     cmp dword[health],0
     jle GameOver
