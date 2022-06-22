@@ -161,16 +161,16 @@ BattleRNG:
     mov eax, rng_prompt
     mov ebx, BattleRNG - rng_prompt
     call print
-    call getn
     ;don't accept negative numbers
     ;get the difference between the guess and the rng number
-    mov esp, eax
+
     mov edx, dword[x]
     mov ecx, 10 ;player max guess range is 10
     call generate_random_num
     mov dword [x], ecx
-    mov eax, esp
-    pop esp
+
+    call getn
+    mov ecx, dword[x]
     sub eax, ecx
     
     ;if it's within 2, inflict 1 damage
