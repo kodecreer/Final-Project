@@ -76,18 +76,3 @@ print:
     mov ebx, STDOUT
     int 80h
     ret 
-;Parameters ecx: The range for which you want
-;edx: The seed value
-generate_random_num:
-    ;xn+1 = (a*xn + b) % m
-    mov eax, 38;setting a
-    mov ebx, 14;setting b
-    
-    imul edx, eax ;ecx is x
-    add edx, ebx
-    mov eax, edx
-    xor edx, edx
-    ;mov ecx, 100;setting m
-    div ecx
-    mov ecx, edx
-    ret
