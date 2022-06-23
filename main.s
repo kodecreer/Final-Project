@@ -54,11 +54,11 @@ DungeonsWall:
     call print
 DungeonsWallIn:
     call getchar
-    cmp eax, '1'
+    cmp al, '1'
     jz InvesitgateSound
-    cmp eax, '2'
+    cmp al, '2'
     jz OpenDoor
-    cmp eax, '3'
+    cmp al, '3'
     jz AskFroto
     ;print an error message
     call error_msg_num
