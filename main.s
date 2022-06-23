@@ -216,7 +216,7 @@ ORC_SWARM_FIGHT:
 balrog_arrives_msg: db `You were wise and you hear a loud thud. The orcs hear it and see the hue of flames at the end of the hall\n`,0
 balrog_arrives_msg2: db `They were sorely afraid and cower in fear. After Ghimli makes fun of them, you all wonder what cuased them to run.\n`,0
 balrog_arrives_msg3: db `You then come to find out that there is a huge black horned humanoid monster with a flame body come in.\n`,0
-balrog_arrives_msg4: db `It is the Balrog. An evil monster responsible for many evil. Do fight you and enact justice for the world, or do you run? y/n\n`,0
+balrog_arrives_msg4: db `It is the Balrog. An evil monster responsible for many evil. Do you run? y/n\n`,0
 BalrogArrives:
     mov eax, balrog_arrives_msg
     mov ebx, balrog_arrives_msg2 - balrog_arrives_msg
