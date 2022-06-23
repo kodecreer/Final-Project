@@ -182,7 +182,14 @@ NoPickUpBook:
     mov eax, no_pick_book_msg2
     mov ebx, NoPickUpBook - no_pick_book_msg2
     call print
-    jmp ORC_SWARM_FIGHT
+NoPickUpBookIn:
+    call getchar
+    cmp al, 'y'
+    jz ORC_SWARM_FIGHT
+    cmp al, 'n'
+    jz BalrogArrives
+    call error_msg_y_n
+    jmp NoPickUpBookIn
 troll_defeated_msg: db `You adjusted the bow accurately and hit the cave troll in the head. He then falls down with his final breath. You all leave the doors and head towards the grand hall. You then look up and noticed an large darkness creeping in. You see a horde of Orcs coming down\n`,0
 troll_defeated_msg2: db `They have surrounded, but for some reason pause and didn't attack you yet. Do you attack first or no? y/n\n`,0
 TrollDefeated:
