@@ -267,7 +267,12 @@ BridgeTiltIn:
     ;print error message
     call error_msg_y_n
     jmp BridgeTilt
+death_by_stairs_msg: db `You all act short sighted and the isolated bridge with Froto clashes with the wall near the Balrog. Aragon dodges the Balrogs slash, but both him and Froto fall to their everlast misery. Saulron wins\n`,0
 DeathByStairs:
+    mov eax, death_by_stairs_msg
+    mov ebx, DeathByStairs - death_by_stairs_msg
+    call print
+    jmp GameOver
 jumped_bridge_msg: `Aragon realizes that he can just tilt the bridge. He carry's Froto and goes to the end of the bridge.\n`,0
 jumped_bridge_msg2: `The moment the loud collison of the two stair cases. Aragon jumps and barely makes  it on there.\n`,0
 jumped_bridge_msg3: `You all would love to celebrate, but you notice the Balrog coming through.\n`,0
