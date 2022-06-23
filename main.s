@@ -10,24 +10,22 @@ EXTERN getn, generate_random_num, printn, print, getchar
 section .data
     error_y_n:
         db `Please enter either y or n. Invalid character\n`,0
-    lerror_y_n: 
-        dd 0
+
     error_num:
         db `Please enter valid first character that's a digit in the range\n`,0
-    lerror_num:
-        dd 0
+    marker:
     
 section .text
 ;%include "std.s"
 %include "io.h"
 error_msg_y_n:
     mov eax, error_y_n
-    mov ebx, lerror_y_n - error_y_n
+    mov ebx, error_num - error_y_n
     call print
     ret
 error_msg_num:
      mov eax, error_num
-     mov ebx, lerror_num - error_num
+     mov ebx, marker - error_num
      call print
      ret
 _start:
