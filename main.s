@@ -5,7 +5,7 @@
 ;Make the right choices and you can survive this place.
 global _start
 ;helper functions from std.s are print and getchar
-EXTERN print, getchar, getd
+EXTERN print, getchar
 
 section .data
     ;The error message yes and no prompts
@@ -69,17 +69,15 @@ DungeonsWall:
 ;This is asking for the first character to be entered into the screen
 ;1, 2, or 3. Otherwise it will pull up an error
 DungeonsWallIn:
-    call getd
-    cmp eax, 1
+    call getchar
+    cmp eax, '1'
     jz InvesitgateSound
-    cmp eax, 2
+    cmp eax, '2'
     jz OpenDoor
-    cmp eax, 3
+    cmp eax, '3'
     jz AskFroto
     ;this should give a more specific error than the other.
     ;This is when they don't enter a digit
-    cmp ebx, 0
-    jl DungeonsWallIn
     ;print an error message
     call error_msg_num
     jmp DungeonsWallIn
