@@ -1,3 +1,4 @@
+; Kode creer
 global _start
 EXTERN getn, generate_random_num, printn, print, getchar
 ;TODO Wedsnday
