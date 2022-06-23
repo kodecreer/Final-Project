@@ -1,18 +1,15 @@
-;main.s
-;Kode Creer © Jun 23, 2022
-;This is the main program of the dungoen of Khazad Dum
-;You have choices to enter the input for only the first character you use
-;Make the right choices and you can survive this place.
 global _start
-;helper functions from std.s are print and getchar
-EXTERN print, getchar
-
+EXTERN getn, generate_random_num, printn, print, getchar
+;TODO Wedsnday
+;Fill in other Scenarios until gandalf and Belrog fight
+;Test program and make sure it doesn't break by the time of class tommorow
+;Finish and test up to cave troll fight
+;Impliment validation for numbers 
+;new
 section .data
-    ;The error message yes and no prompts
     error_y_n:
         db `Please enter either y or n. Invalid character\n`,0
     lerror_y_n equ $ - error_y_n
-    ;The error message for number prompts
     error_num:
         db `Please enter valid first character that's a digit in the range\n`,0
     lerror_num equ $ - error_num
@@ -20,15 +17,11 @@ section .data
 section .text
 ;%include "std.s"
 %include "io.h"
-;This takes in no parameters and returns not any specific values
-;this is the subroutine that prints a error message for yes and no prompts
 error_msg_y_n:
     mov eax, error_y_n
     mov ebx, lerror_y_n
     call print
     ret
-;This takes in no parameters and returns not any specific values
-;This is the subroutine that prints an error message for number propmpts
 error_msg_num:
      mov eax, error_num
      mov ebx, lerror_num
@@ -39,35 +32,25 @@ _start:
     mov eax, EXIT
     mov ebx, 0;everything worked
     int 80h
-;This is the starting of teh dungeon that people start out. 
-;Scenarios never take any parameters
+
 welcome_msg: db `Welcome to Khazad Dum, you have been forced to come here after failing to climb Caradhras. You must escape this dungeon in order to quest towards destroy the ring of Saulron. Are you ready to embark on this great adventrue? y/n\n`,0
 Welcome:
-    ;print the welcome message
     mov eax, welcome_msg
     mov ebx, Welcome - welcome_msg
     call print
-    ;get the input of yes or no
     call getchar
-    ;get started with game if they entered y
     cmp al, 'y'
     jz DungeonsWall
     cmp al, 'n'
-    ;just end the game if they enterno
     jz Exit
-    ;print an error message if the first character they entered is not y or n
+    ;print an error message
     call error_msg_y_n
     jmp Welcome
-;This is the scene when they are at the wall to begin with
 dungeons_wall_msg: db `You have are at the walls of the dungeon and hear something behind you creeping as you try to open the door. As Gandalf, you can either \n1.go and investigate the sound\n2.try to open the door\n3. ask Froto what the word might be.\nWhich one shall you take? 1-3\n`,0
 DungeonsWall:
-    ;output the message
     mov eax, dungeons_wall_msg
     mov ebx, DungeonsWall - dungeons_wall_msg
     call print
-;This subrountine splits the scene to the part we get the input
-;This is asking for the first character to be entered into the screen
-;1, 2, or 3. Otherwise it will pull up an error
 DungeonsWallIn:
     call getchar
     cmp eax, '1'
@@ -76,22 +59,16 @@ DungeonsWallIn:
     jz OpenDoor
     cmp eax, '3'
     jz AskFroto
-    ;this should give a more specific error than the other.
-    ;This is when they don't enter a digit
     ;print an error message
     call error_msg_num
     jmp DungeonsWallIn
-;This runs the scenario when someone investigates the sound
-;No parameter or return values
 ;This is when they press one of the keyboard
 investigate_sound_msg: db `You decide to investigate the sound and found a giant Leviathan that eats Froto and the Stupid Hobit. With the Leviathan came the ring, and so did you hope. Game over the Saulron has won. \n`,0
 InvesitgateSound:
-    ;output the message
     mov eax, investigate_sound_msg
     mov ebx, InvesitgateSound - investigate_sound_msg
     call print
     jmp GameOver
-;This runs the scenario
 ;This is when you enter in the number 2 on the keyboard
 open_door_msg: db `You tryed another spell or random word to open the door, but to no avail. Try again. \n`,0
 OpenDoor:
@@ -99,19 +76,13 @@ OpenDoor:
     mov ebx, OpenDoor - open_door_msg
     call print
     jmp DungeonsWall
-;Again no parameters, and no return values. 
-;It just runs Asking Froto scenario
 ;when you enter 3 on DungeonsWall
-;This will open the door since Froto is the chosen one, remember?
 ask_froto_msg: 
     db `Frodo says its a riddle and asks Gandalf what is the elvish word for friend. Gandalf translate the word friend to elivish and opens the door. You all then enter the empty great city once occupied by dwarfs. You all enter into a room and the stupid hobbit sees a book. Do you grab it or not? y/n\n`,0
 AskFroto:
-    ;just printing it again
     mov eax, ask_froto_msg
     mov ebx, AskFroto - ask_froto_msg
     call print
-;The section of the scenario when we get the input
-;This is mostly to account for when someoene enters an invalid character
 AskFrotoIn:
     call getchar
     cmp al, 'y'
@@ -121,25 +92,19 @@ AskFrotoIn:
     ;print error message
     call error_msg_y_n
     jmp AskFrotoIn
-;This iswhen the ORcs attack and storm the part where you fight he cave troll
-;No parameters or return values
 orcs_attack_msg: db `The stupid hobit grabs the book and with him being clumsy, dropped it into a deep whole on accident. His brother calls him an idiot. You hear the sound of an impending army of orcs coming after an arrow hits the door. You all brace to fight for you lives.\n`,0
 orcs_attack_msg2: db `Borimor then says that there is a cave troll and you all block the door. It is barracaded and immedietly bursted open by the cave troll.\n`,0
 orcs_attack_msg3: db `The troll attacks the hobbits and splits them up after taking a couple of arrows. It then takes a liking to Froto and ignores everybody else. Do you Aragon attempt to defend Froto? y/n\n`,0
 OrcsAttack:
-    ;printing the first msg
     mov eax, orcs_attack_msg
     mov ebx, orcs_attack_msg2 - orcs_attack_msg
     call print
-    ;printing the second msg
     mov eax, orcs_attack_msg2
     mov ebx, orcs_attack_msg3 - orcs_attack_msg2
     call print
-    ;printing the third msg
     mov eax, orcs_attack_msg3
     mov ebx, OrcsAttack - orcs_attack_msg3
     call print
-;Getting the input for the Orc attack
 OrcsAttackIn:
     call getchar
     cmp al, 'y'
@@ -149,15 +114,11 @@ OrcsAttackIn:
     ;print an error message
     call error_msg_y_n
     jmp OrcsAttackIn
-;This isthe scenario that's in line with the movie when Froto is attacked
-;by the cave troll
-;No parameters or return values. 
 defend_froto_msg: db `Aragon heads off to fight off the troll, but the troll slaps him. This time with some orcs aiding him. Attack the Orcs first? y/n\n`,0
 DefendFroto:
     mov eax, defend_froto_msg
     mov ebx, DefendFroto - defend_froto_msg
     call print
-;Getting the input when you have to choice to defend Froto or not
 DefendFrotoIn:
     call getchar
     cmp al, 'y'
@@ -167,18 +128,12 @@ DefendFrotoIn:
     ;print error message
     call error_msg_y_n
     jmp DefendFrotoIn
-;This is a scenario when you attack the Troll first instead of the orcs like the movie
-;no parameters or return values
 troll_first_msg: db `You kill the troll, but one of the orcs grabs Froto and steals his ring. Saulron has won\n`,0
 TrollFirst:
-    ;printing the output
     mov eax, troll_first_msg
     mov ebx, TrollFirst - troll_first_msg
     call print
-    ;They die so game over
     jmp GameOver
-;MOvie consistent when you don't defend Froto immedietly
-;No parameters or return values
 no_defend_froto: db `The cave troll closes in of Froto and stabs him. This enrages the crew and you all together must fight the cave troll together now!!!! Battle Begin!!!!\n`,0
 NoDefendFroto:
     mov eax, no_defend_froto
@@ -475,3 +430,4 @@ Exit:
     mov eax, EXIT
     mov ebx, 0;everything worked
     int 80h
+    ;repeat until either the player dies or the enemy dies
