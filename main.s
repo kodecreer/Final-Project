@@ -274,10 +274,10 @@ DeathByStairs:
     mov ebx, DeathByStairs - death_by_stairs_msg
     call print
     jmp GameOver
-jumped_bridge_msg: `Aragon realizes that he can just tilt the bridge. He carry's Froto and goes to the end of the bridge.\n`,0
-jumped_bridge_msg2: `The moment the loud collison of the two stair cases. Aragon jumps and barely makes  it on there.\n`,0
-jumped_bridge_msg3: `You all would love to celebrate, but you notice the Balrog coming through.\n`,0
-jumped_bridge_msg4: `You can either run or fight. Will you run? y/n\n`,0
+jumped_bridge_msg: db `Aragon realizes that he can just tilt the bridge. He carry's Froto and goes to the end of the bridge.\n`,0
+jumped_bridge_msg2: db `The moment the loud collison of the two stair cases. Aragon jumps and barely makes  it on there.\n`,0
+jumped_bridge_msg3: db `You all would love to celebrate, but you notice the Balrog coming through.\n`,0
+jumped_bridge_msg4: db `You can either run or fight. Will you run? y/n\n`,0
 JumpedBridge:
     mov eax, jumped_bridge_msg
     mov ebx, jumped_bridge_msg2 - jumped_bridge_msg
