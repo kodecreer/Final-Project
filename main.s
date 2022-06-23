@@ -339,7 +339,7 @@ EscapeBalrogIn:
     call error_msg_y_n
     jmp EscapeBalrogIn
 ;This is when the bridge tilts, just like the scene in the movie
-bridge_tilt: db `Balrog peaks through and slashes the leg of the staircase with Aragon and Froto. It is falling backward. You could either jump or do nothing. y/n\n`,0
+bridge_tilt: db `Balrog peaks through and slashes the leg of the staircase with Aragon and Froto. It is falling backward. Will you jump? y/n\n`,0
 BridgeTilt:
     ;print the propmt
     mov eax, bridge_tilt
@@ -366,7 +366,7 @@ DeathByStairs:
     call print
     jmp GameOver
 ;This is when the succesfully jump the bridge. This is where multiple wins are possible according to what you choose
-jumped_bridge_msg: db `Aragon realizes that he can just tilt the bridge. He carry's Froto and goes to the end of the bridge.\n`,0
+jumped_bridge_msg: db `Aragon realizes that he can just tilt the bridge after doing nothing. He carry's Froto and goes to the end of the bridge.\n`,0
 jumped_bridge_msg2: db `The moment the loud collison of the two stair cases. Aragon jumps and barely makes  it on there.\n`,0
 jumped_bridge_msg3: db `You all would love to celebrate, but you notice the Balrog coming through.\n`,0
 jumped_bridge_msg4: db `You can either run or fight. Will you run? y/n\n`,0
