@@ -257,7 +257,7 @@ EscapeBalrog:
 EscapeBalrogIn:
     call getchar
     cmp al, 'y'
-    jz BalrogsLastStand
+    jz BridgeTilt
     cmp al, 'n'
     jz FrotoShootByOrc
     ;print error messag
