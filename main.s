@@ -473,6 +473,7 @@ FightBalrogBridgeIn:
     cmp al, '3'
     jz BalrogEatsFroto
     ;print error message and have the user try again
+    call error_msg_num
     jmp FightBalrogBridgeIn
 
 ;scene when you send balrog to another dimension
