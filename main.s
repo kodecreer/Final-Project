@@ -339,7 +339,7 @@ EscapeBalrogIn:
     call error_msg_y_n
     jmp EscapeBalrogIn
 ;This is when the bridge tilts, just like the scene in the movie
-bridge_tilt: db `Balrog peaks through and slashes the leg of the staircase with Aragon and Froto. It is falling backward. Will you jump? y/n\n`,0
+bridge_tilt: db `Balrog peaks through and slashes the leg of the staircase with Aragon and Froto. It is falling backward. Will you jump before you figure it out anyways? y/n\n`,0
 BridgeTilt:
     ;print the propmt
     mov eax, bridge_tilt
@@ -541,6 +541,7 @@ VictoryIn:
     cmp al, 'n'
     jz Exit
     ;print error message and hvae the user try again
+    call error_msg_y_n
     jmp VictoryIn
 ;This is simple, it exits the program.
 Exit:
