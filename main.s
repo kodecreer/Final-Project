@@ -324,7 +324,7 @@ MovieEnding:
     mov ebx, movie_ending_msg3 - movie_ending_msg2
     call print
     mov eax, movie_ending_msg3
-    move bx, MovieEnding - movie_ending_msg3
+    move ebx, MovieEnding - movie_ending_msg3
     call print
     jmp Victory
 balrog_win_msg: db `Gandalf slips on the shaking tremor and the Balrog kills the crew with his whip. Saulron wins.\n`,0
@@ -405,7 +405,7 @@ victory_msg: db `You have enacted justice and have survived the Balrog. May you 
 victory_msg2: db `Do you want to play again?\n`,0
 Victory:
     mov eax, victory_msg
-    mov ebx victory_msg2 - victory_msg
+    mov ebx, victory_msg2 - victory_msg
     call print
     mov eax, victory_msg2
     mov ebx, Victory - victory_msg2
