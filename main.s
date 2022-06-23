@@ -147,7 +147,7 @@ CAVE_TROLL_FIGHT:
     call print
 CAVE_TROLL_FIGHT_In:
     call getchar
-    cmp eax, '1';TODO make it a random number to be guessed
+    cmp al, '1';TODO make it a random number to be guessed
     jz CAVE_TROLL_FIGHT2
     jg TrollKillsAragon
     ;print error message
