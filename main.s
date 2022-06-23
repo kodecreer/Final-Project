@@ -267,6 +267,7 @@ BridgeTiltIn:
     ;print error message
     call error_msg_y_n
     jmp BridgeTilt
+
 death_by_stairs_msg: db `You all act short sighted and the isolated bridge with Froto clashes with the wall near the Balrog. Aragon dodges the Balrogs slash, but both him and Froto fall to their everlast misery. Saulron wins\n`,0
 DeathByStairs:
     mov eax, death_by_stairs_msg
