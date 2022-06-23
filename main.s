@@ -145,13 +145,14 @@ CAVE_TROLL_FIGHT:
     mov eax, cave_troll_msg
     mov ebx, CAVE_TROLL_FIGHT - cave_troll_msg
     call print
+CAVE_TROLL_FIGHT_In:
     call getchar
     cmp eax, '1';TODO make it a random number to be guessed
     jz CAVE_TROLL_FIGHT2
     jg TrollKillsAragon
     ;print error message
     call error_msg_num
-    jmp CAVE_TROLL_FIGHT
+    jmp CAVE_TROLL_FIGHT_In
 troll_kills_aragon_msg: db `Aragon gets dragged in by the Troll and the Cave Troll kills him. Later at the final battle, Gondor gets overun without the undead army\n`,0
 TrollKillsAragon:
     mov eax, troll_kills_aragon_msg
