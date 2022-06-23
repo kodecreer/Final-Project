@@ -1,4 +1,9 @@
-global getchar, getline, getd, print,printn, generate_random_num
+; Kode creer © Jun 23, 2022
+;This is the std library for basic helper functions that
+;make the program a lot easier to product
+;I did implement random numbers, but it was too buggy to 
+;include the project
+global getchar, print
 
 section .data
     ecxtemp dd 0
