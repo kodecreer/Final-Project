@@ -59,6 +59,7 @@ getd:
     ;store the string into data variable
     sub al, '0'
     cmp al, 0
+    mov ebx, 0;everything is ok
     jl gderr
     cmp al, 9
     ja gderr
@@ -67,7 +68,7 @@ gderr:
     mov eax, getd_err
     mov ebx, lgetd_err
     call print
-    int 80h
+    mov ebx, -1; there is an error
     ret
 print:
     mov ecx, eax
