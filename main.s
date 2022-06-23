@@ -186,50 +186,38 @@ NoDefendFroto:
     mov eax, no_defend_froto
     mov ebx, NoDefendFroto - no_defend_froto
     call print
-;This is when the fight between the cave troll begins
-;The lucky number is 1
+;This is when the fight bete
 cave_troll_msg: db `The cave troll is resisting, pick a number between 1 to 4 possible moves.\n`,0
 CAVE_TROLL_FIGHT:
     mov eax, cave_troll_msg
     mov ebx, CAVE_TROLL_FIGHT - cave_troll_msg
     call print
-    call getd
-    cmp eax, 1
+    call getchar
+    cmp eax, '1'
     jz CAVE_TROLL_FIGHT2
     jg TrollKillsAragon
-    cmp ebx, 0
-    jl CAVE_TROLL_FIGHT
     ;print error message
     call error_msg_num
     jmp CAVE_TROLL_FIGHT
-;This is when the Troll kills Arargon
-;NO parameters or return values
-troll_kills_aragon_msg: db `Aragorn gets dragged in by the Troll and the Cave Troll kills him. Later at the final battle, Gondor gets overun without the undead army\n`,0
+troll_kills_aragon_msg: db `Aragon gets dragged in by the Troll and the Cave Troll kills him. Later at the final battle, Gondor gets overun without the undead army\n`,0
 TrollKillsAragon:
-    ;printing output
     mov eax, troll_kills_aragon_msg
     mov ebx, TrollKillsAragon - troll_kills_aragon_msg
     call print
-    ;Game over, Aragorn is a crucial character in the story
     jmp GameOver
-;This is if you are able to last
-;The lucky number is 6
 cave_troll_msg2: db `You all gang up together and surrounded the cave troll. He is very angry. Legolas climbs on top of him and has to shoot him. Pick between a number between 0 and 9 that will determine the spot he gets hit.\n`,0
 CAVE_TROLL_FIGHT2:
     mov eax, cave_troll_msg2
     mov ebx, CAVE_TROLL_FIGHT2 - cave_troll_msg2
     call print
 CAVE_TROLL_FIGHT2_IN:
-    call getd
-    cmp al, 6
+    call getchar
+    cmp al, '6'
     jz TrollDefeated
-    cmp al, 9
+    cmp al, '9'
     jle CAVE_TROLL_FIGHT2
-    cmp al, 0
+    cmp al, '0'
     jge CAVE_TROLL_FIGHT2
-    ;If they didn't etner a digit
-    cmp ebx, 0
-    jl CAVE_TROLL_FIGHT2_IN
     ;print error message
     call error_msg_num
     jmp CAVE_TROLL_FIGHT2_IN
