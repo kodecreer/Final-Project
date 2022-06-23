@@ -184,14 +184,13 @@ NoDefendFroto:
     mov eax, no_defend_froto
     mov ebx, NoDefendFroto - no_defend_froto
     call print
-;This is when the fight bete
 cave_troll_msg: db `The cave troll is resisting, pick a number between 1 to 4 possible moves.\n`,0
 CAVE_TROLL_FIGHT:
     mov eax, cave_troll_msg
     mov ebx, CAVE_TROLL_FIGHT - cave_troll_msg
     call print
     call getchar
-    cmp eax, '1'
+    cmp eax, '1';TODO make it a random number to be guessed
     jz CAVE_TROLL_FIGHT2
     jg TrollKillsAragon
     ;print error message
