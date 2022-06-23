@@ -523,7 +523,7 @@ GameOver:
     call Exit
 ;This is when you win the game
 victory_msg: db `You have enacted justice and have survived the Balrog. May you all destroy root of all evil in that ring.\n`,0
-victory_msg2: db `Do you want to play again?\n`,0
+victory_msg2: db `Do you want to play again? y/n\n`,0
 Victory:
     ;print the ouptut
     mov eax, victory_msg
