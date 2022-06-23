@@ -305,7 +305,7 @@ JumpedBridge:
     cmp al, 'y'
     jz BalrogsLastStand
     cmp al, 'n'
-    jz FightBalrogHall
+    jz FightBalrogBridge
     ;print error message
     call error_msg_y_n
     jmp JumpedBridge
